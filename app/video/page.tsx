@@ -1,11 +1,11 @@
 import React from "react";
-import { auth } from "@clerk/nextjs";
+import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
 export default async function VideoPage() {
-  const { userId } = await auth();
-  
-  if (!userId) {
+  const user = await currentUser();
+
+  if (!user) {
     redirect("/sign-in");
   }
 
@@ -29,4 +29,4 @@ export default async function VideoPage() {
       </div>
     </div>
   );
-} 
+}

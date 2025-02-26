@@ -3,19 +3,18 @@
 import * as React from "react";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 
-export default function ThemeProvider({
-  children,
-  ...props
-}: React.ComponentProps<typeof NextThemesProvider>) {
-  const [mounted, setMounted] = React.useState(false);
+interface ThemeProviderProps {
+  children: React.ReactNode;
+}
 
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return null;
-  }
-
-  return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
+export default function ThemeProvider({ children }: ThemeProviderProps) {
+  return (
+    <NextThemesProvider
+      attribute="class"
+      defaultTheme="dark"
+      enableSystem={false}
+      disableTransitionOnChange>
+      {children}
+    </NextThemesProvider>
+  );
 }
